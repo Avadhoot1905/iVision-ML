@@ -23,11 +23,10 @@ def load_model():
     global model
     try:
         # 1. Initialize MobileNetV2 architecture
-        # Assuming you are using a standard MobileNetV2 architecture
+        # Your model was trained on 5 classes, so we need to adjust the classifier layer
         model = models.mobilenet_v2(weights=None)
-        # Note: If your model was trained on a different number of classes (e.g., 10 instead of 1000),
-        # you would need to adjust the classifier layer like this (example for 10 classes):
-        # model.classifier[1] = torch.nn.Linear(model.last_channel, 10)
+        # Adjust the classifier layer to match your model's 5 classes
+        model.classifier[1] = torch.nn.Linear(model.last_channel, 5)
 
         # 2. Load the state dictionary (weights)
         # We need to handle potential 'cuda' mappings if the model was saved on a GPU
